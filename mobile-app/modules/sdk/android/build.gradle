@@ -1,0 +1,121 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.google.protobuf'
+
+group = 'expo.modules.glasssdk'
+version = '0.7.6'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useExpoPublishing()
+
+// If you want to use the managed Android SDK versions from expo-modules-core, set this to true.
+// The Android SDK versions will be bumped from time to time in SDK releases and may introduce breaking changes in your module code.
+// Most of the time, you may like to manage the Android SDK versions yourself.
+def useManagedAndroidSdkVersions = false
+if (useManagedAndroidSdkVersions) {
+    useDefaultAndroidSdkVersions()
+} else {
+    buildscript {
+        // Simple helper that allows the root project to override versions declared by this library.
+        ext.safeExtGet = { prop, fallback ->
+            rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+        }
+    }
+    project.android {
+        compileSdk safeExtGet("compileSdkVersion", 36)
+        defaultConfig {
+            minSdk safeExtGet("minSdkVersion", 24)
+            targetSdk safeExtGet("targetSdkVersion", 36)
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+android {
+    namespace "expo.modules.glasssdk"
+    defaultConfig {
+        versionCode 1
+        versionName "0.7.6"
+    }
+    lintOptions {
+        abortOnError false
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// custom
+
+dependencies {
+    def livekit_version = "2.26.1"
+
+    implementation "io.livekit:livekit-android:$livekit_version"
+    implementation "io.livekit:krisp-noise-filter:0.0.15"
+
+
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+    implementation 'io.netty:netty-all:4.1.68.Final'
+    implementation 'com.google.protobuf:protobuf-javalite:3.18.1'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Embedded HTTP server used internally by the Moyoung CRP SDK (com.moyoung.m.a). The vendor's
+    // AAR references it but doesn't bundle it; without it the SDK's notification path throws
+    // NoClassDefFoundError (fi.iki.elonen.NanoHTTPD). It's the real, dependency-free library.
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+
+    // Google Play Services Location for LocationTool
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // Health Connect for HealthTool
+    implementation 'androidx.health.connect:connect-client:1.1.0-alpha07'
+    // ComponentActivity + registerForActivityResult for the health permission flow
+    implementation 'androidx.activity:activity-ktx:1.9.3'
+
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
+
+    implementation files('libs/k900_sdk.aar')
+    implementation files('libs/cyan_sdk.aar')
+    // cyan_sports / Moyoung CRP SDK. This AAR has been repackaged so its protobuf runtime is
+    // shaded into com.moyoung.shaded.protobuf (see modules/sdk/tools/shade-cyan-sports-sdk).
+    // That keeps it off the app's protobuf-javalite, which LiveKit/K900 require — do NOT add a
+    // com.google.protobuf:protobuf-java dependency here; it lives inside the AAR.
+    implementation files('libs/cyan_sports_sdk.aar')
+
+    compileOnly 'io.sentry:sentry-android:8.42.0'
+};
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.18.1'
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+            }
+        }
+    }
+}
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        languageVersion = "2.2"
+    }
+}

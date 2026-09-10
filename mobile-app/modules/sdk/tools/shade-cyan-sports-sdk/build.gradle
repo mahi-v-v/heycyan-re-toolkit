@@ -1,0 +1,39 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath 'com.github.johnrengelman:shadow:8.1.1'
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  // The Moyoung SDK classes (extracted from the vendor AAR by shade.sh) + the FULL protobuf
+  // runtime they require. Shadow merges both and relocates protobuf into a private package so
+  // it never collides with the app's protobuf-javalite (used by LiveKit / K900).
+  implementation files('moyoung-classes.jar')
+  implementation 'com.google.protobuf:protobuf-java:4.29.3'
+}
+
+shadowJar {
+  archiveBaseName.set('moyoung-shaded')
+  archiveClassifier.set('')
+  archiveVersion.set('')
+  // Relocate the full protobuf runtime AND every reference to it (inside the Moyoung classes)
+  // into a private package. The rest of the app keeps the global com.google.protobuf (javalite).
+  relocate 'com.google.protobuf', 'com.moyoung.shaded.protobuf'
+  // Drop protobuf's bundled .proto descriptor source files — they keep their original
+  // google/protobuf/*.proto resource path (relocation only renames classes) and collide with
+  // the app's protobuf-javalite copies at :app:mergeDebugJavaResource. They are tooling-only;
+  // the runtime uses compiled descriptors embedded in the classes.
+  exclude '**/*.proto'
+  // Do NOT minimize: protobuf relies on reflection; keep all classes.
+}

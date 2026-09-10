@@ -1,0 +1,25 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["GlassModule", "AgentModule", "GlassStreamModule", "PhoneStreamModule", "ToolsModule"]
+  },
+  "android": {
+    "gradleAarProjects": [
+      {
+        "name": "ksdk",
+        "aarFilePath": "android/libs/k900_sdk.aar"
+      },
+      {
+        "name": "cyan_sdk",
+        "aarFilePath": "android/libs/cyan_sdk.aar"
+      }
+    ],
+    "modules": [
+      "expo.modules.glasssdk.glass.GlassModule",
+      "expo.modules.glasssdk.agent.AgentModule",
+      "expo.modules.glasssdk.stream.GlassStreamModule",
+      "expo.modules.glasssdk.stream.PhoneStreamModule",
+      "expo.modules.glasssdk.tools.ToolsModule"
+    ]
+  }
+}

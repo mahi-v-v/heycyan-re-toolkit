@@ -1,0 +1,5 @@
+# Transient artifacts produced by shade.sh — the committed output is the repackaged
+# AAR at modules/sdk/android/libs/cyan_sports_sdk.aar.
+moyoung-classes.jar
+build/
+.gradle/

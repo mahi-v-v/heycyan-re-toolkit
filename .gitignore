@@ -1,0 +1,63 @@
+# ==========================================
+# Mobile app (Expo / React Native)
+# ==========================================
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+.metro-health-check*
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+.env*.local
+*.tsbuildinfo
+
+# Generated native projects (regenerate with `npx expo prebuild`)
+mobile-app/ios/
+mobile-app/android/
+
+# Native build artifacts
+build/
+.kotlin/
+*.orig.*
+local.properties
+
+# Signing material — never commit
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+
+# ==========================================
+# Hardware research / reverse engineering
+# ==========================================
+# Ghidra project databases (huge, lock-prone)
+*.gpr
+*.rep/
+*.lock
+
+# Extracted firmware filesystems — re-extract locally with binwalk
+hardware_research/firmware_and_os/firmware/rootfs_extracted/
+hardware_research/firmware_and_os/firmware/user_extracted/
+hardware_research/firmware_and_os/extracted_fw/rootfs_unpacked/
+
+# Vendor SDKs, firmware images and decompiled third-party artifacts are NOT
+# distributed with this repo — see VENDOR_ASSETS.md.
+*.swu
+*.img
+*.aar
+*.apk
+*.dex
+
+# ==========================================
+# IDE / OS noise
+# ==========================================
+.claude/
+.gemini/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

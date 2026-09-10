@@ -1,0 +1,44 @@
+// Trace Log for Neural Network DSP Loops
+Found entry function: FUN_ram_80882ddc
+
+--- Decompiled FUN_ram_80882ddc ---
+
+/* WARNING: Removing unreachable block (ram,0x80882e30) */
+/* WARNING: Removing unreachable block (ram,0x80882e5e) */
+/* WARNING: Removing unreachable block (ram,0x80882ef4) */
+/* WARNING: Removing unreachable block (ram,0x80882e62) */
+/* WARNING: Removing unreachable block (ram,0x80882e70) */
+/* WARNING: Removing unreachable block (ram,0x80882e8c) */
+
+undefined4 FUN_ram_80882ddc(int param_1)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  
+  iVar1 = param_1 + 0x1c;
+  FUN_ram_80898f18(*(undefined4 *)(param_1 + 0xc));
+  uVar2 = FUN_ram_80898caa(iVar1);
+  if (*(int *)(param_1 + 4) == 0) {
+    FUN_ram_80891214(&DAT_ram_808e5978,"rpbuf_notify_by_link",0x28a,param_1);
+    FUN_ram_80898d0c(iVar1,uVar2);
+    uVar2 = 0xfffffffe;
+  }
+  else {
+    FUN_ram_80898d0c(iVar1,uVar2);
+    *(undefined1 *)(gp + 0x2bce) = 0;
+    FUN_ram_80891214(&DAT_ram_808e59ac,"rpbuf_compose_service_message",0x24f);
+    FUN_ram_80891214(&DAT_ram_808e59f8,"rpbuf_notify_by_service",0x268);
+    uVar2 = 0xffffffea;
+    FUN_ram_80891214(&DAT_ram_808e5ab4,"rpbuf_notify_by_link",0x293);
+  }
+  FUN_ram_80898ec2(*(undefined4 *)(param_1 + 0xc));
+  return uVar2;
+}
+
+
+
+--- Memory Block Analysis (Hunting for Tensor Arena) ---
+Block: .bss_unsaved Size: 57145 bytes
+Block: .bss Size: 15560 bytes
+Block: csr Size: 16384 bytes

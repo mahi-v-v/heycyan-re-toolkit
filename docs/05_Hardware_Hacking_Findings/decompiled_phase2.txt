@@ -1,0 +1,113 @@
+// Trace Log for Phase 2: Input Shape Analysis
+
+// ----------------------------------------
+// Function: FUN_ram_80898f18
+// ----------------------------------------
+
+int FUN_ram_80898f18(int param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int aiStack_14 [3];
+  
+  aiStack_14[0] = 0;
+  if ((param_1 == 0) || (*(int *)(param_1 + 0x50) == 0)) {
+    iVar1 = -4;
+  }
+  else {
+    iVar1 = thunk_FUN_ram_808bfe54();
+    if (iVar1 == 0) {
+      iVar1 = FUN_ram_808bc784(*(undefined4 *)(param_1 + 0x50),0xffffffff);
+      iVar1 = -(uint)(iVar1 != 1);
+    }
+    else {
+      iVar2 = FUN_ram_808bcb44(*(undefined4 *)(param_1 + 0x50),0,aiStack_14);
+      iVar1 = -1;
+      if ((iVar2 == 1) && (iVar1 = 0, aiStack_14[0] != 0)) {
+        FUN_ram_808816b2();
+        iVar1 = 0;
+      }
+    }
+  }
+  return iVar1;
+}
+
+
+
+// ----------------------------------------
+// Function: FUN_ram_80898caa
+// ----------------------------------------
+
+undefined4 FUN_ram_80898caa(void)
+
+{
+  undefined4 uVar1;
+  int iVar2;
+  
+  uVar1 = FUN_ram_80880d50();
+  iVar2 = thunk_FUN_ram_808bfe54();
+  if (iVar2 != 0) {
+    return uVar1;
+  }
+  FUN_ram_808994e6();
+  return uVar1;
+}
+
+
+
+// ----------------------------------------
+// Function: FUN_ram_80898d0c
+// ----------------------------------------
+
+void FUN_ram_80898d0c(undefined4 param_1,undefined4 param_2)
+
+{
+  int iVar1;
+  
+  iVar1 = thunk_FUN_ram_808bfe54();
+  if (iVar1 != 0) {
+    FUN_ram_80880d66(param_1,param_2);
+    return;
+  }
+  thunk_FUN_ram_808bdd1c();
+  FUN_ram_80880d66(param_1,param_2);
+  return;
+}
+
+
+
+// ----------------------------------------
+// Function: FUN_ram_80898ec2
+// ----------------------------------------
+
+int FUN_ram_80898ec2(int param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int aiStack_14 [3];
+  
+  aiStack_14[0] = 0;
+  if ((param_1 == 0) || (*(int *)(param_1 + 0x50) == 0)) {
+    iVar1 = -4;
+  }
+  else {
+    iVar1 = thunk_FUN_ram_808bfe54();
+    if (iVar1 == 0) {
+      iVar1 = FUN_ram_808bbdbc(*(undefined4 *)(param_1 + 0x50),0,0,0);
+      iVar1 = -(uint)(iVar1 != 1);
+    }
+    else {
+      iVar2 = FUN_ram_808bc3b6(*(undefined4 *)(param_1 + 0x50),aiStack_14);
+      iVar1 = -1;
+      if ((iVar2 == 1) && (iVar1 = 0, aiStack_14[0] != 0)) {
+        FUN_ram_808816b2();
+        iVar1 = 0;
+      }
+    }
+  }
+  return iVar1;
+}
+
+
