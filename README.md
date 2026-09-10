@@ -15,6 +15,13 @@ analysis scripts and app code alongside.
 > and decompiled application. Those are third-party material and are not redistributed here.
 > See [`VENDOR_ASSETS.md`](VENDOR_ASSETS.md) for what is referenced and how to obtain it.
 
+> ### Why the history is a single commit
+> This project was a **long, multi-month reverse-engineering effort**, and its full day-by-day
+> commit history lives in a **private repository**. This public repo is a deliberately curated
+> snapshot, rebuilt as one clean commit so the work can be shown as a portfolio piece **without
+> publishing vendor-proprietary material or work-in-progress security details**. The flat history
+> here is intentional — it's a showcase, not the development log.
+
 > ### Read the findings status before trusting any claim
 > This was an active investigation and several early conclusions were later **refuted**. Every
 > document is annotated, but the single reconciled source of truth is
